@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        #container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #6200ea;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #3700b3;
+        }
+        #joke {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Joke Generator</h1>
+        <button id="randomJokeButton">Get Random Joke</button>
+        <button id="programmingJokeButton">Get Programming Joke</button>
+        <button id="knockKnockJokeButton">Get Knock-Knock Joke</button>
+        <div id="joke">Click a button for a joke!</div>
+    </div>
+    <script>
+        const jokeElement = document.getElementById('joke');
+        const randomJokeButton = document.getElementById('randomJokeButton');
+        const programmingJokeButton = document.getElementById('programmingJokeButton');
+        const knockKnockJokeButton = document.getElementById('knockKnockJokeButton');
+
+        async function fetchJoke(category) {
+            const url = category ? `https://v2.jokeapi.dev/joke/${category}` : 'https://v2.jokeapi.dev/joke/Any';
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.joke) {
+                    jokeElement.textContent = data.joke;
+                } else {
+                    jokeElement.textContent = `${data.setup} \n ${data.delivery}`;
+                }
+            } catch (error) {
+                jokeElement.textContent = 'Failed to fetch a joke';
+            }
+        }
+
+        randomJokeButton.addEventListener('click', () => fetchJoke());
+        programmingJokeButton.addEventListener('click', () => fetchJoke('Programming'));
+        knockKnockJokeButton.addEventListener('click', () => fetchJoke('Knock-Knock'));
+    </script>
+</body>
+</html>
