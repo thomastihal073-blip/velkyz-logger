@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELKYZ-LOGGER</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #007BFF; color: white; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>VELKYZ-LOGGER Script Generator</h1>
+    <p>Click the button below to generate your logger script:</p>
+    <button id="generate">Generate Logger Script</button>
+    <div id="output" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('generate').addEventListener('click', function() {
+            const loggerScript = `
+                function logger(message) {
+                    console.log(new Date().toISOString() + ': ' + message);
+                }
+            `;
+            document.getElementById('output').innerText = loggerScript;
+        });
+    </script>
+</body>
+</html>
